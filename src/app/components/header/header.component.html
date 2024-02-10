@@ -1,0 +1,47 @@
+<div class="wrapper">
+    <mat-toolbar class="transparent-background">
+        <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" 
+            fxLayoutAlign="center">
+            <div fxFlex="35%" >
+                <span >
+                <!-- logo goes here -->
+            </span> 
+            </div>
+            <div fxFlex="5%">
+                <button mat-icon-button [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger"
+                    (mouseover)="menuTrigger.openMenu()">
+                    <div class="resource">Resource</div>
+                </button>
+                <mat-menu #menu="matMenu" [overlapTrigger]="false">
+                    <span (mouseleave)="menuTrigger.closeMenu()">
+                        <button mat-menu-item>
+                            <mat-icon>home</mat-icon>
+                            <span>Home</span>
+                        </button>
+                        <button mat-menu-item>
+                            <mat-icon>people_outline</mat-icon>
+                            <span>Connecting</span>
+                        </button>
+                        <button mat-menu-item>
+                            <mat-icon>videocam</mat-icon>
+                            <span>Let's talk</span>
+                        </button>
+                        <button mat-menu-item>
+                            <mat-icon>exit_to_app</mat-icon>
+                            <span>Logout</span>
+                        </button>
+                    </span>
+                </mat-menu>
+            </div>
+            <div fxFlex="5%">
+                <div class="nav-items">Pricing</div>
+            </div>
+            <div fxFlex="5%">
+                <div class="fill-remaining-space">Contact us</div>
+            </div>
+            <div fxFlex="40%" class="login-div">
+                <a class="login-a" [routerLink]="'/login'" >Login</a> <button mat-raised-button class="login-button">Start for Free</button>
+            </div>
+        </div>
+    </mat-toolbar>
+</div>

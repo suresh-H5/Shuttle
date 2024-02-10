@@ -1,0 +1,86 @@
+<mat-toolbar color="primary" class="bg-color">
+    <button mat-icon-button (click)="sidenav.toggle()" matTooltip="Menu">
+        <mat-icon>menu</mat-icon>
+    </button>
+    <span>Shuttle Infra</span>
+    <span class="toolbar-item-spacer"></span>
+    <button mat-icon-button matTooltip="Like">
+        <mat-icon>favorite</mat-icon>
+    </button>
+    <button mat-icon-button matTooltip="Share">
+        <mat-icon>share</mat-icon>
+    </button>
+    <button mat-icon-button matTooltip="Notifications">
+        <mat-icon>notifications</mat-icon>
+    </button>
+    <button mat-icon-button matTooltip="My Account" [matMenuTriggerFor]="userAccountMenu">
+        <mat-icon>account_circle</mat-icon>
+    </button>
+    <mat-menu #userAccountMenu [overlapTrigger]="false" yPosition="below">
+        <button mat-menu-item routerLink="#">
+            <mat-icon>person</mat-icon><span>My Account</span>
+        </button>
+        <button mat-menu-item routerLink="#">
+            <mat-icon>settings</mat-icon><span>Settings</span>
+        </button>
+        <button mat-menu-item routerLink="#">
+            <mat-icon>help</mat-icon><span>Help</span>
+        </button>
+        <mat-divider></mat-divider>
+        <button mat-menu-item routerLink="#">
+            <mat-icon>exit_to_app</mat-icon>Logout
+        </button>
+    </mat-menu>
+</mat-toolbar>
+
+<mat-sidenav-container class="app-container">
+    <mat-sidenav #sidenav mode="side" [class.mat-elevation-z4]="true" class="app-sidenav" [opened]="true">
+        <div  class="project-title">
+            <div class="ProjectName" class="project-name"> {{projectName}}</div>
+        </div>
+        <input type="text"  placeholder="Search Resources" class="input-text" (input)="filterResources($event)">
+       
+        <mat-nav-list *ngFor="let item of filteredResources">
+            <mat-expansion-panel [class.mat-elevation-z0]="true" *ngIf="item.children" class="nav-element">
+                
+                <mat-expansion-panel-header>
+                    <mat-icon>{{item.iconName}}</mat-icon>
+                   <span class="expand-element"> {{item.displayName}}</span>
+                </mat-expansion-panel-header>
+                <mat-nav-list *ngFor="let submenu of item.children" class="nav-element">
+                    <mat-expansion-panel [class.mat-elevation-z0]="true" *ngIf="submenu.children" class="nav-element">
+                        <mat-expansion-panel-header>
+                            <mat-icon>{{submenu.iconName}}</mat-icon>
+                            <span class="expand-element"> {{submenu.displayName}} </span>
+                        </mat-expansion-panel-header>
+                        <mat-nav-list *ngFor="let submenuChild of submenu.children" class="nav-element">
+                         <a mat-list-item routerLink="#">
+                            <!-- <i class="fa fa-{{submenuChild.iconName}}"> </i> -->
+                        <mat-icon>{{submenuChild.iconName}}</mat-icon>
+                        <span>{{submenuChild.displayName}}</span>
+                        </a>
+                        </mat-nav-list>
+                    </mat-expansion-panel>
+                    <a mat-list-item routerLink="#" *ngIf="!submenu.children" [routerLinkActive]="['is-active']">
+                        <mat-icon>{{submenu.iconName}}</mat-icon>
+                        <!-- <i class="{{submenu.iconName}}"> </i> -->
+                        <span>{{submenu.displayName}}</span>
+                    </a>
+
+                </mat-nav-list>
+            </mat-expansion-panel>
+            <a mat-list-item routerLink="#" *ngIf="!item.children" routerLinkActive="myactiveLink">
+                <mat-icon>{{item.iconName}}</mat-icon>
+                <!-- <i class="{{item.iconName}}"> </i> -->
+                <span>{{item.displayName}}</span>
+            </a>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <router-outlet>
+            <div class="app-sidenav-content">
+                Components open here
+            </div>
+        </router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>

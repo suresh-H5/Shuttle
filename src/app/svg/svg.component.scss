@@ -1,0 +1,16 @@
+.items-container {
+    width: 30%;
+
+    svg {
+        cursor: move;
+    }
+}
+
+.svg-container {
+    border: 3px dashed #000;
+    background-color: #CCC;
+    height: 500px;
+    width: 500px;
+
+    position: relative;
+}

@@ -1,0 +1,97 @@
+<mat-grid-list cols="2">
+    <mat-grid-tile class="form-wrapper main">
+        <mat-card-content>
+            <div class="card-content" style="width: 500px;">
+                <mat-grid-list cols="2" rowHeight="2:1">
+                    <h1 class="login-title">Log in to your account</h1>
+                    <p class="login-subtitle">Welcome back! Select your login method</p>
+                </mat-grid-list>
+                <mat-grid-list cols="2" rowHeight="3:1" [gutterSize]="'7px'">
+                    <mat-grid-tile>
+                        <div style="justify-content: space-between !important;">
+
+                            <a class="text-5xl inTextLink" data-provider="microsoft" title="Microsoft" type="button">
+                                <div class="sso-container">
+                                    <div class="SSO-btn">
+                                        <img class="btn-icon" src="../../../assets/microsoft-icon.png" /><label
+                                            class="login-btn-label">Microsoft</label>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <div style="justify-content: space-between !important;">
+                            <a class="text-5xl inTextLink" data-provider="google" title="Google" type="button">
+                                <div class="sso-container">
+                                    <div class="SSO-btn">
+                                        <img class="btn-icon" src="../../../assets/google-icon.png"
+                                            style="vertical-align: middle;" /><label
+                                            class="login-btn-label">Google</label>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </mat-grid-tile>
+                </mat-grid-list>
+                <mat-grid-list cols="1" rowHeight="5:1">
+                    <mat-grid-tile rowHeight="3:1">
+                        <div class="divider">
+                            <span>or continue with email</span>
+                        </div>
+                    </mat-grid-tile>
+                </mat-grid-list>
+                <mat-grid-list cols="1" rowHeight="3:1" *ngIf="form">
+                    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                        <div class="form-group">
+                            <mat-form-field style="width: 100%;" appearance="outline">
+                                <input #inputID placeholder="&#xf007; Email"
+                                    style="padding: 5px;font-family: Arial, 'Font Awesome 5 Free';" matInput
+                                    formControlName="email"
+                                    [ngClass]="{ 'is-invalid': submitted && f['email'].errors }" />
+                                <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+                                    <div *ngIf="f['email'].errors['required']">Email is required</div>
+                                    <div *ngIf="f['email'].errors['email']">Email is invalid</div>
+                                </div>
+                            </mat-form-field>
+                        </div>
+                        <div class="form-group">
+                            <mat-form-field style="width: 100%;" appearance="outline">
+                                <input #inputID type="password" formControlName="password" class="form-control"
+                                    placeholder="&#xf023; Password"
+                                    style="padding: 5px;font-family: Arial, 'Font Awesome 5 Free';" matInput
+                                    [ngClass]="{ 'is-invalid': submitted && f['password'].errors }" />
+                                <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
+                                    <div *ngIf="f['password'].errors['required']">Password is required</div>
+                                    <div *ngIf="f['password'].errors['minlength']">
+                                        Password must be at least 6 characters
+                                    </div>
+                                    <div *ngIf="f['password'].errors['maxlength']">
+                                        Username must not exceed 40 characters
+                                    </div>
+                                </div>
+                            </mat-form-field>
+                            <div class="forget"><a><span>Forgot Password?</span></a></div>
+                        </div>
+                        <div class="form-group">
+                            <mat-card-actions>
+                                <div class="form-group" style="width: 100%;">
+                                    <button type="submit" class="login-button" mat-raised-button>Register</button>
+                                </div>
+                            </mat-card-actions>
+                        </div>
+                    </form>
+                </mat-grid-list>
+            </div>
+            <mat-card-footer>
+                <div class="footer-options ">
+                    Do not have an account?
+                    <a class="footer">
+                        Register
+                    </a>
+                </div>
+            </mat-card-footer>
+        </mat-card-content>
+    </mat-grid-tile>
+    <mat-grid-tile>2</mat-grid-tile>
+</mat-grid-list>

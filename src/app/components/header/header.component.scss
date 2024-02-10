@@ -1,0 +1,82 @@
+@import "./../../../theme.scss";
+.mat-toolbar{
+  box-shadow: rgba(0,0,0,.08) 0 1px 0;
+}
+
+.title {
+  color: $primary;
+  font-size: 20px;
+  font-weight: 900;
+}
+
+.profile {
+  border-radius: 50%;
+  color: $primary;
+  cursor: pointer;
+  background-color: white;
+  padding: 5px;
+  font-weight: 900;
+}
+
+.login-button {
+  border: none;
+  color: #fff !important;
+  font-size: 16px;
+  height: 40px;
+  align-items: center;
+  background-image: linear-gradient(117.88deg, #714eff 0%, #a685f3 100%);
+  width: 150px;
+  height: 40px;
+}
+.login-button:hover {
+  background-size: 300%;
+}
+.login-a {
+  margin-right: 1.5%;
+}
+
+.login-div {
+  text-align-last: right;
+}
+.w-button {
+  color: #fff;
+  line-height: inherit;
+  cursor: pointer;
+  background-color: #3898ec;
+  border: 0;
+  border-radius: 0;
+  padding: 9px 15px;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.nav-items {
+  display: block;
+  margin: 0px 20px;
+}
+
+.fill-remaining-space {
+  flex: 1 1 auto;
+}
+.transparent-background {
+  z-index: 1000;
+  height: 84px;
+  background-image: none;
+  padding-bottom: 0;
+  font-family: Montserrat, sans-serif;
+  position: fixed;
+  top: 0;
+}
+
+.container {
+  width: 100%;
+  align-items: center !important;
+}
+
+.resource {
+  font-size: 65%;
+}
+.img-logo {
+  vertical-align: middle;
+  width: 40%;
+}

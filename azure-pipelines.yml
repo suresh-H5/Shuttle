@@ -1,0 +1,66 @@
+# ASP.NET Core (.NET Framework)
+# Build and test ASP.NET Core projects targeting the full .NET Framework.
+# Add steps that publish symbols, save build artifacts, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+
+trigger:
+- develop
+
+stages:
+ - stage: Build
+   pool: Azure Pipelines
+   jobs: 
+     - job: Build
+       displayName: "UI Build"
+       workspace:
+         clean: all
+
+       steps:
+       - task: NodeTool@0
+         inputs:
+          versionSpec: '16.x'
+         displayName: 'Install Node.js'
+
+       - script: |
+            npm install --legacy-peer-deps
+            npm run build
+         displayName: 'npm install and build'
+       
+       - task: PublishBuildArtifacts@1
+         inputs:
+          PathtoPublish: '$(Build.SourcesDirectory)/dist'
+          ArtifactName: 'ShuttleInfra-web'
+          publishLocation: 'Container'
+
+ - stage: Deploy
+   dependsOn: Build
+   condition: succeeded('Build')
+   displayName: "Deployment stage"
+   pool: Azure Pipelines
+   jobs:
+     - deployment: Deploy
+       displayName: "Deployment to Azure"
+       environment: dev
+       strategy: 
+        runOnce:
+          deploy:
+            steps:             
+              - task: DownloadBuildArtifacts@1
+                inputs:
+                  buildType: 'current'
+                  downloadType: 'single'
+                  artifactName: 'ShuttleInfra-web'
+                  downloadPath: '$(System.ArtifactsDirectory)'
+              - task: AzureRmWebAppDeployment@4
+                inputs:
+                  ConnectionType: 'AzureRM'
+                  azureSubscription: 'Shuttle infra CD pipeline service connection'
+                  appType: 'webApp'
+                  WebAppName: 'shuttleinfra'
+                  ResourceGroupName: 'shuttleinfra-rg'
+                  SlotName: 'production'
+                  packageForLinux: '$(System.ArtifactsDirectory)/ShuttleInfra-web/shuttle-infra/'
+
+      
+
+

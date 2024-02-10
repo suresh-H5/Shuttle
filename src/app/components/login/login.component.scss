@@ -1,0 +1,123 @@
+.main {
+  font-family: inter, Helvetica Neue, Helvetica, Arial, sans-serif !important; // TODO: Remove after confirming the font
+}
+.login-title {
+  height: 27px;
+}
+.btn-icon {
+  height: 27px;
+  vertical-align: middle;
+  font-weight: bold;
+  color: black;
+  font-size: 1.2rem;
+}
+.login-btn-label {
+  font-weight: bold;
+  color: black;
+  font-size: 1.2rem;
+}
+.divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  position: relative;
+  width: 100%;
+}
+.divider:before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  background: #cbd5e1;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  left: 50%;
+}
+.divider span {
+  background: #fff;
+  padding: 0 16px;
+  color: #94a3b8;
+  z-index: 1;
+  display: inline-block;
+  text-align: center;
+}
+.login-subtitle {
+  color: #94a3b8;
+  font-size: 16px;
+}
+.login-button {
+  text-decoration: none;
+  width: 100%;
+  border: none;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 500;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: linear-gradient(117.88deg, #714eff 0%, #a685f3 100%);
+  background-size: 100%;
+  transition: 0.4s background-size ease-in-out;
+  border-radius: 6px;
+}
+.login-button:hover {
+  background-size: 300%;
+}
+.footer-options {
+  line-height: 4;
+  font-size: 14px;
+  gap: 5px;
+  color: #94a3b8;
+  text-align: center;
+}
+.pt-4 {
+  padding-top: 1.5rem !important;
+}
+.mt-4 {
+  margin-top: 1.5rem !important;
+}
+.inTextLink {
+  color: #714eff;
+  text-decoration: none;
+  font-weight: 500;
+}
+.text-5xl {
+  font-size: 3rem;
+  line-height: 1;
+}
+.sso-container {
+  margin-top: 28px;
+}
+.SSO-btn {
+  border: 1px solid #cbd5e1;
+  display: flex;
+  width: 245px;
+  height: 50px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+.margin-space {
+  margin-left: 10px;
+}
+.forget {
+  width: 100%;
+  text-align: left;
+  text-decoration: none;
+  color: #714eff;
+  font-weight: 500;
+  font-size: 0.875rem;
+  line-height: 4.25rem;
+}
+.footer {
+  text-decoration: none;
+  color: #714eff;
+  font-weight: 500;
+}
+
+.google-div {
+  justify-content: space-between !important;
+}

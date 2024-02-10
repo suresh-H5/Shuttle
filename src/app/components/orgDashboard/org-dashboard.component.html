@@ -1,0 +1,195 @@
+<div class="dashboard-container">
+    <div class="dashboard-sidenav flex-column">
+        <div class="dashboard-sidenav-item flex-column flex-grow">
+            <div *ngFor="let org of organizations">
+                <div class="sidenav-item">
+                    <div (click)="onSelectOrg(org)" class="action-link"
+                        [ngClass]="{'action-link-active': selectedOrg.name==org.name}">
+                        <div class="project-logo">
+                            <p>{{org.name[0]}}</p>
+                        </div>
+                        <div class="project-name">
+                            {{org.name}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="sidenav-item">
+                <div (click)="showOrgCreationModal(template)" class="action-link new-org-link">New organization</div>
+            </div>
+        </div>
+        <div class="sidenav-footer">
+            <div class="sidenav-item flex-row">
+                <div class="action-link">Organization settings</div>
+            </div>
+        </div>
+    </div>
+    <div class="dashboard-content">
+        <div class="content-window flex-column">
+            <div class="header">
+                <h1 class="title">{{selectedOrg.name}}</h1>
+                <button (click)="showProjectCreationWindow()" type="button" class="btn btn-primary btn-sm">Create
+                    Project</button>
+            </div>
+            <div class="menu-bar">
+                <div class="menu-item active">
+                    <span>Projects </span>
+                </div>
+                <div class="search-control">
+                    <span></span>
+                    <input #projectSearchBox (input)="searchProjects(projectSearchBox.value)"
+                        [(ngModel)]="projectSearch" type="text" name="" id="" placeholder="Filter projects">
+                </div>
+            </div>
+            <div class="projects">
+                <ul *ngIf="projectSearchBox.value.length == 0">
+                    <li class="project-card" *ngFor="let project of selectedOrg?.projects">
+                        <a [routerLink]="['/design']">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="flex-column">
+                                        <div class="flex-row">
+                                            <div class="project-logo">
+                                                <p>{{project.name[0]}}</p>
+                                            </div>
+                                            <div class="flex-column">
+                                                <div class="project-thumbnail">
+                                                    <h2 class="project-name">{{project?.name}}</h2>
+                                                    <div class="project-description">{{project?.description}}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="flex-row flex-end justify-end project-actions">
+                                            <div class="action">
+                                                <div class="dot"></div>
+                                            </div>
+                                            <div class="action">
+                                                <div class="dot"></div>
+                                            </div>
+                                            <div class="action">
+                                                <div class="dot"></div>
+                                            </div>
+                                            <div class="action">
+                                                <div class="dot"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+                <ul>
+                    <li *ngIf="projectSearchBox.value.length > 0 && projectSearchResults.length ==0">
+                        <h6>Projects no found for given filter criteria.</h6>
+                    </li>
+                    <ng-container *ngIf="projectSearchResults.length>0">
+                        <li class="project-card" *ngFor="let project of projectSearchResults">
+                            <a [routerLink]="['/']">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="flex-column">
+                                            <div class="flex-row">
+                                                <div class="project-logo">
+                                                    <p>{{project.name[0]}}</p>
+                                                </div>
+                                                <div class="flex-column">
+                                                    <div class="project-thumbnail">
+                                                        <h2 class="project-name">{{project?.name}}</h2>
+                                                        <div class="project-description">{{project?.description}}</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="flex-row flex-end justify-end project-actions">
+                                                <div class="action">
+                                                    <div class="dot"></div>
+                                                </div>
+                                                <div class="action">
+                                                    <div class="dot"></div>
+                                                </div>
+                                                <div class="action">
+                                                    <div class="dot"></div>
+                                                </div>
+                                                <div class="action">
+                                                    <div class="dot"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                    </ng-container>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div [ngClass]="{'create-project-container':showProjectCreationBlock}" [hidden]="!showProjectCreationBlock">
+            <div class="card">
+                <form class="flex-column" #projectForm="ngForm" (ngSubmit)="onCreateProject(projectForm)" novalidate>
+                    <div class="card-header">
+                        <h6>New Project</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label for="orgName" class="form-label">Project Name</label>
+                            <input type="text" name="name" (blur)="onEnterProjectName(project.name)" [(ngModel)]="project.name" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="orgName" class="form-label">Project Description</label>
+                            <textarea required name="description" class="form-control" [(ngModel)]="project.description"
+                                id="description" cols="30" rows="3"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <p class="error-message" *ngIf="!!isProjectExists"> {{errorMessage}}</p>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button type="button" (click)="projectForm.resetForm();onCancleProjectBtn();"
+                            class="btn btn-secondary btn-sm me-2">Cancel</button>
+                        <button  [disabled]="!!isProjectExists || !projectForm.valid" type="submit" class="btn btn-primary btn-sm">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #template>
+    <form #orgForm="ngForm" (ngSubmit)="onCreateOrganization(orgForm)" novalidate>
+        <div class="modal-header">
+            <h4 class="modal-title pull-left">New Organization</h4>
+        </div>
+        <div class="modal-body">
+            <div class="mb-3">
+                <label for="orgName" class="form-label">Organization Name</label>
+                <input type="text" name="name" (blur)="onEnterOrgName(organization.name)" [(ngModel)]="organization.name" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="ordDescription" class="form-label">Source Control</label>
+                <select class="form-select" name="sourceCode" [(ngModel)]="organization.sourceCode"
+                    aria-label="Default select example" required>
+                    <option selected>Open this select menu</option>
+                    <option value="Github">Github</option>
+                    <option value="Bitbucket">Bitbucket</option>
+                    <option value="AzureDevops">Azure Devops</option>
+                    <option value="GitLab">GitLab</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="orgName" class="form-label">Source Code url</label>
+                <input type="text" name="sourceCodeUrl" [(ngModel)]="organization.sourceCodeUrl" class="form-control"
+                    required>
+            </div>
+            <div class="mb-3">
+                <p class="error-message" *ngIf="!!isOrgExists"> {{errorMessage}}</p>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button (click)="orgForm.resetForm();onCancleOrgBtn();" type="button" class="btn btn-secondary btn-sm">Cancel</button>
+            <button  [disabled]="!!isOrgExists || !orgForm.valid" (click)="modalRef?.hide()" type="submit"
+                class="btn btn-primary btn-sm">Save</button>
+        </div>
+    </form>
+</ng-template>
