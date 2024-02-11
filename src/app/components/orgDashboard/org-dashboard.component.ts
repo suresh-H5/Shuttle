@@ -42,6 +42,7 @@ export class OrgDashboardComponent {
   errorMessage = '';
   isOrgExists: boolean = false;
   isProjectExists: boolean = false;
+  urlValidatorPattern = /^(?:(http(s)?)?(sftp)?(ftp)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/;
 
   /// Modal decalrations  ///
   modalRef?: BsModalRef;
@@ -56,7 +57,7 @@ export class OrgDashboardComponent {
 
   onCreateOrganization(orgForm: NgForm) {
     this.errorMessage = '';
-    if (!orgForm.valid) { return;}
+    if (!orgForm.valid) { return; }
     this.isOrgExists = this.checkOrgExist(orgForm.value.name);
     if (!!this.isOrgExists) { this.setErrorMessage(`${orgForm.value.name} is already exists.`); } else {
       let newOrg = orgForm.value;
@@ -79,7 +80,7 @@ export class OrgDashboardComponent {
 
   onCreateProject(projectForm: NgForm) {
     this.errorMessage = '';
-    if (!projectForm.valid) { return;}
+    if (!projectForm.valid) { return; }
     this.isProjectExists = this.checkProjectExist(projectForm.value.name);
     if (!!this.isProjectExists) { this.setErrorMessage(`${projectForm.value.name} is already exists.`); return }
     this.selectedOrg.projects?.push(projectForm.value);
@@ -130,11 +131,11 @@ export class OrgDashboardComponent {
       this.projectSearchResults = this.selectedOrg.projects?.filter(project => project.name.toLocaleLowerCase().indexOf(term.toLowerCase()) != -1) || [];
     }
   }
-  onCancleProjectBtn(){
+  onCancleProjectBtn() {
     this.closeProjectCreationWindow();
     this.isProjectExists = false;
   }
-  onCancleOrgBtn(){
+  onCancleOrgBtn() {
     this.modalRef?.hide();
     this.isOrgExists = false;
   }

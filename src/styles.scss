@@ -21,15 +21,11 @@ $shuttle-infra-warn: mat.define-palette(mat.$red-palette);
 
 // Create the theme object. A theme consists of configurations for individual
 // theming systems such as "color" or "typography".
-$shuttle-infra-theme: mat.define-light-theme(
-  (
-    color: (
-      primary: $shuttle-infra-primary,
-      accent: $shuttle-infra-accent,
-      warn: $shuttle-infra-warn,
-    ),
-  )
-);
+$shuttle-infra-theme: mat.define-light-theme((color: (primary: $shuttle-infra-primary,
+        accent: $shuttle-infra-accent,
+        warn: $shuttle-infra-warn,
+      ),
+    ));
 
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
@@ -40,9 +36,10 @@ $shuttle-infra-theme: mat.define-light-theme(
 
 * {
   box-sizing: border-box;
-  margin: 0 ;
+  margin: 0;
   padding: 0;
 }
+
 html,
 body {
   height: 100%;
@@ -52,29 +49,28 @@ body {
 body {
   margin: 0;
   font-family: 'Roboto', sans-serif;
-  font-size: 14px;;
+  font-size: 14px;
+  ;
   font-weight: 300;
 }
-label{
+
+label {
   font-weight: 400;
 }
 
-.ng-valid[required], .ng-valid.required  {
-  border-left: 5px solid #42A948; /* green */
+.mat-expansion-panel-body {
+  padding: 0 18px 10px !important;
 }
 
-.ng-invalid:not(form)  {
-  border-left: 5px solid #a94442; /* red */
-}
-.mat-expansion-panel-body 
-{
-    padding: 0 18px 10px !important;
+.mdc-list-item {
+  padding-left: 8px !important;
+  ;
 }
 
-.mdc-list-item{
-  padding-left : 8px !important;;
-}
-
-.mat-expansion-indicator::after{
+.mat-expansion-indicator::after {
   color: white !important;
+}
+
+.form-controrl-error {
+  border: 1px solid #a94442;
 }

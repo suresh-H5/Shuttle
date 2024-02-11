@@ -134,12 +134,17 @@
                     <div class="card-body">
                         <div class="mb-3">
                             <label for="orgName" class="form-label">Project Name</label>
-                            <input type="text" name="name" (blur)="onEnterProjectName(project.name)" [(ngModel)]="project.name" class="form-control" required>
+                            <input
+                                [ngClass]="{'form-controrl-error': projectName.invalid && (projectName.dirty || projectName.touched)}"
+                                type="text" name="name" (blur)="onEnterProjectName(project.name)"
+                                [(ngModel)]="project.name" class="form-control" required #projectName="ngModel">
                         </div>
                         <div class="mb-3">
                             <label for="orgName" class="form-label">Project Description</label>
-                            <textarea required name="description" class="form-control" [(ngModel)]="project.description"
-                                id="description" cols="30" rows="3"></textarea>
+                            <textarea
+                                [ngClass]="{'form-controrl-error': projectDescription.invalid && (projectDescription.dirty || projectDescription.touched)}"
+                                required name="description" class="form-control" [(ngModel)]="project.description"
+                                id="description" cols="30" rows="3" #projectDescription="ngModel"></textarea>
                         </div>
                         <div class="mb-3">
                             <p class="error-message" *ngIf="!!isProjectExists"> {{errorMessage}}</p>
@@ -148,7 +153,8 @@
                     <div class="card-footer">
                         <button type="button" (click)="projectForm.resetForm();onCancleProjectBtn();"
                             class="btn btn-secondary btn-sm me-2">Cancel</button>
-                        <button  [disabled]="!!isProjectExists || !projectForm.valid" type="submit" class="btn btn-primary btn-sm">Save</button>
+                        <button [disabled]="!!isProjectExists || !projectForm.valid" type="submit"
+                            class="btn btn-primary btn-sm">Save</button>
                     </div>
                 </form>
             </div>
@@ -164,11 +170,16 @@
         <div class="modal-body">
             <div class="mb-3">
                 <label for="orgName" class="form-label">Organization Name</label>
-                <input type="text" name="name" (blur)="onEnterOrgName(organization.name)" [(ngModel)]="organization.name" class="form-control" required>
+                <input
+                    [ngClass]="{'form-controrl-error': organizationName.invalid && (organizationName.dirty || organizationName.touched)}"
+                    type="text" name="name" (blur)="onEnterOrgName(organization.name)" [(ngModel)]="organization.name"
+                    class="form-control" required #organizationName="ngModel">
             </div>
             <div class="mb-3">
                 <label for="ordDescription" class="form-label">Source Control</label>
-                <select class="form-select" name="sourceCode" [(ngModel)]="organization.sourceCode"
+                <select #sourceControl="ngModel"
+                    [ngClass]="{'form-controrl-error': sourceControl.invalid && (sourceControl.dirty || sourceControl.touched)}"
+                    class="form-select" name="sourceCode" [(ngModel)]="organization.sourceCode"
                     aria-label="Default select example" required>
                     <option selected>Open this select menu</option>
                     <option value="Github">Github</option>
@@ -179,7 +190,9 @@
             </div>
             <div class="mb-3">
                 <label for="orgName" class="form-label">Source Code url</label>
-                <input type="text" name="sourceCodeUrl" [(ngModel)]="organization.sourceCodeUrl" class="form-control"
+                <input [pattern]="urlValidatorPattern" #sourceCodeUrl="ngModel"
+                    [ngClass]="{'form-controrl-error': sourceCodeUrl.invalid && (sourceCodeUrl.dirty || sourceCodeUrl.touched)}"
+                    type="text" name="sourceCodeUrl" [(ngModel)]="organization.sourceCodeUrl" class="form-control"
                     required>
             </div>
             <div class="mb-3">
@@ -187,8 +200,9 @@
             </div>
         </div>
         <div class="modal-footer">
-            <button (click)="orgForm.resetForm();onCancleOrgBtn();" type="button" class="btn btn-secondary btn-sm">Cancel</button>
-            <button  [disabled]="!!isOrgExists || !orgForm.valid" (click)="modalRef?.hide()" type="submit"
+            <button (click)="orgForm.resetForm();onCancleOrgBtn();" type="button"
+                class="btn btn-secondary btn-sm">Cancel</button>
+            <button [disabled]="!!isOrgExists || !orgForm.valid" (click)="modalRef?.hide()" type="submit"
                 class="btn btn-primary btn-sm">Save</button>
         </div>
     </form>
